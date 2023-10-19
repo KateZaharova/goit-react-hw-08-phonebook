@@ -11,6 +11,7 @@ gap: 8px;
 border: 4px solid black;
 border-radius: 8px;
 width: 600px;
+font-weight: 600;
 `;
 
 export const FieldInfo = styled(Field)`

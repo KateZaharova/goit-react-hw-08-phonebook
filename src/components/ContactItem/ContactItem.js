@@ -1,6 +1,6 @@
 import { ButtonDlt, Wrapper } from "./ContactItem.styled";
 import { useDispatch } from "react-redux";
-import { deleteContact } from "redux/operations";
+import { deleteContact } from "redux/contacts/operations";
 
 export const ContactItem = ({ item: { name, phone }, itemId }) => {
     const dispatch = useDispatch();

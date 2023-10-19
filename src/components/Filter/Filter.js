@@ -1,13 +1,13 @@
 import { Wrapper, TextInput, ResetBtn } from "./Filter.styled";
 import { setFilter, resetFilter } from "redux/filterSlice";
-import { getFilter } from "redux/selectors";
+import { selectFilter } from "redux/contacts/selectors";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
 
 
 export const Filter = () => {
-    const filter = useSelector(getFilter).value;
+    const filter = useSelector(selectFilter).value;
     const dispatch = useDispatch();
     const filterChange = filter => dispatch(setFilter(filter));
     const resetHandFilter = () => dispatch(resetFilter());

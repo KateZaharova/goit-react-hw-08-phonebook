@@ -3,9 +3,9 @@ import { StyledForm, FieldInfo, ButtonAdd, ErrorMsg } from "./Form.styled";
 import * as Yup from 'yup';
 //import { addContact } from 'redux/contactsSlice';
 import { useDispatch } from "react-redux";
-import { getContacts} from "redux/selectors";
+import { selectContacts} from "redux/contacts/selectors";
 import { useSelector } from "react-redux";
-import { addContact } from "redux/operations";
+import { addContact } from "redux/contacts/operations";
 
 
 const ContactFormSchema = Yup.object().shape({
@@ -19,7 +19,7 @@ const ContactFormSchema = Yup.object().shape({
 });
 
 export const ContactForm = () => {
-    const contacts = useSelector(getContacts);
+    const contacts = useSelector(selectContacts);
     const dispatch = useDispatch();
        
     const addHandContact = (values) => {

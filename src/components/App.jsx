@@ -1,14 +1,21 @@
+import { useEffect, lazy } from "react";
+import { useDispatch} from "react-redux";
 import { Layout } from "./Layout";
-import { GlobalStyle } from "./GlobalStyle";
-//import { Component } from "react";
+import { Route, Routes } from "react-router-dom";
+import { PrivateRoute } from "./PrivateRoute";
+import { RestrictedRoute } from "./RestrictedRoute";
+import { refreshUser } from "redux/auth/operations";
+import { useAuth } from "hooks";
+//import { GlobalStyle } from "./GlobalStyle";
+
+/*import { Component } from "react";
 import { ContactForm } from "./Form/Form";
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
 //import { nanoid } from 'nanoid';
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchContacts } from "redux/operations";
-import { getError, getIsLoading } from "redux/selectors";
+import { fetchContacts } from "redux/contacts/operations";
+import { getError, selectLoading } from "redux/contacts/selectors";*/
+
 
 
 /*
@@ -35,13 +42,54 @@ const getIntialContacts = () => {
 };
 
 */
+
+const HomePage = lazy(() => import("../pages/Home"));
+const RegisterPage = lazy(() => import("../pages/Register"));
+const LoginPage = lazy(() => import("../pages/Login"));
+const ContactsPage = lazy(() => import("../pages/Contacts"));
+
 export const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
-  //const { items, isLoading, error } = useSelector(getContacts);
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<RegisterPage />} />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+          }
+        />
+      </Route>
+    </Routes>
+  );
+};
+
+  //const isLoading = useSelector(selectLoading);
+  //const error = useSelector(getError);
+  //const { items, isLoading, error } = useSelector(getContacts);
+
+ /* useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
@@ -82,19 +130,11 @@ const findName = filterName => {
   const resetFilter = () => {
     setFilter('')
   };
-*/
+
 
 
 return (
-    <Layout
-      /*style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-    }}*/>
+    <Layout>
     <h1>Phonebook</h1>
     <ContactForm />
       {isLoading && !error && <b>Request in progress...</b>}
@@ -105,4 +145,4 @@ return (
     </Layout>
   );
 
-  };
+  };*/
