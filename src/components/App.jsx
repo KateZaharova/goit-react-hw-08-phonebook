@@ -82,9 +82,9 @@ export const App = () => {
           }
           />
           <Route
-          path="/contacts"
+          path="/*"
           element={
-            <PrivateRoute redirectTo="/contacts" component={<NotFoundPage />} />
+            <RestrictedRoute  component={<NotFoundPage />} />
           }
           />
       </Route>

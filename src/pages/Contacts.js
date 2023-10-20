@@ -13,7 +13,6 @@ export default function Contacts() {
     const isLoading = useSelector(selectLoading);
 
     useEffect(() => {
-        console.log("Hi from contacts");
         dispatch(fetchContacts());
     }, [dispatch]);
 

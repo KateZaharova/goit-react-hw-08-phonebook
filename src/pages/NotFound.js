@@ -16,7 +16,7 @@ export default function NotFound() {
     return (
         <div style={styles.container}>
             <h1 style={styles.title}>
-                No such contacts here, unfortunately!
+                No results found<br/>
             </h1>
         </div>
     );

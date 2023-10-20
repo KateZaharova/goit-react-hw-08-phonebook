@@ -30,7 +30,6 @@ const contactsSlice = createSlice({
             state.isLoading = false;
             state.error = null;
             state.items = action.payload.map(({ number: phone, ...rest }) => ({ phone, ...rest }));
-            console.log(state.items);
         },
         [addContact.fulfilled](state, action){
             state.isLoading = false;

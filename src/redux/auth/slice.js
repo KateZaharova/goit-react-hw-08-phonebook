@@ -8,6 +8,10 @@ const initialState = {
     isRefreshing: false,
 };
 
+const handleRejected = (state, action) => {
+    alert(action.payload);
+};
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -22,6 +26,9 @@ const authSlice = createSlice({
             state.token = action.payload.token;
             state.isLoggedIn = true;
         },
+        [logIn.rejected]: handleRejected,
+        [register.rejected]: handleRejected,
+        [logOut.rejected]:handleRejected,
         [logOut.fulfilled](state) {
             state.user = { name: null, email: null };
             state.token = null;
